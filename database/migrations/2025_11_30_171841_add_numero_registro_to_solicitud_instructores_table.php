@@ -8,15 +8,23 @@ class AddNumeroRegistroToSolicitudInstructoresTable extends Migration
 {
     public function up()
     {
+        if (!Schema::hasTable('solicitud_instructores')) {
+            return;
+        }
+
         Schema::table('solicitud_instructores', function (Blueprint $table) {
-            $table->string('numero_registro')->nullable()->after('id');
+            if (!Schema::hasColumn('solicitud_instructores', 'numero_registro')) {
+                $table->string('numero_registro')->nullable()->after('id');
+            }
         });
     }
 
     public function down()
     {
-        Schema::table('solicitud_instructores', function (Blueprint $table) {
-            $table->dropColumn('numero_registro');
-        });
+        if (Schema::hasTable('solicitud_instructores') && Schema::hasColumn('solicitud_instructores', 'numero_registro')) {
+            Schema::table('solicitud_instructores', function (Blueprint $table) {
+                $table->dropColumn('numero_registro');
+            });
+        }
     }
 }
