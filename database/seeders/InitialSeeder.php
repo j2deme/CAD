@@ -22,11 +22,14 @@ class InitialSeeder extends Seeder
     {
 
         $users = [
-            ['email'=> 'admin@tecvalles.mx', 'password' => bcrypt('12345678'), 'tipo' => '1']
+            ['email' => 'admin@tecvalles.mx', 'password' => bcrypt('12345678'), 'tipo' => '1']
         ];
 
-        foreach($users as $user){
-            User::create($user);
+        foreach ($users as $user) {
+            User::firstOrCreate(
+                ['email' => $user['email']],
+                ['password' => $user['password'], 'tipo' => $user['tipo']]
+            );
         }
 
         $this->command->info('Usuarios creados');
@@ -39,18 +42,21 @@ class InitialSeeder extends Seeder
             ['nombre' => 'Instructor']
         ];
 
-        foreach($roles as $role){
-            role::create($role);
+        foreach ($roles as $role) {
+            Role::firstOrCreate(['nombre' => $role['nombre']]);
         }
 
         $this->command->info('Roles creados');
 
         $user_roles = [
-            ['user_id'=> '1','role_id' => '1'],
+            ['user_id' => '1', 'role_id' => '1'],
         ];
 
-        foreach($user_roles as $user_role){
-            user_role::create($user_role);
+        foreach ($user_roles as $user_role) {
+            user_role::firstOrCreate([
+                'user_id' => $user_role['user_id'],
+                'role_id' => $user_role['role_id']
+            ]);
         }
 
         $this->command->info('Usuarios con roles creados');
@@ -64,8 +70,8 @@ class InitialSeeder extends Seeder
             ['nombre' => 'Agronomia']
         ];
 
-        foreach($departamentos as $departamento){
-            Departamento::create($departamento);
+        foreach ($departamentos as $departamento) {
+            Departamento::firstOrCreate(['nombre' => $departamento['nombre']]);
         }
 
         $this->command->info('Departamentos creados');
@@ -74,8 +80,11 @@ class InitialSeeder extends Seeder
             ['user_id' => '1', 'nombre' => 'admin', 'departamento_id' => '1']
         ];
 
-        foreach($datos_generales as $datos){
-            Datos_generale::create($datos);
+        foreach ($datos_generales as $datos) {
+            Datos_generale::firstOrCreate(
+                ['user_id' => $datos['user_id']],
+                ['nombre' => $datos['nombre'], 'departamento_id' => $datos['departamento_id']]
+            );
         }
 
         $this->command->info('Datos generales creados');
@@ -84,8 +93,11 @@ class InitialSeeder extends Seeder
             ['user_id' => '1', 'plantel' => '.', 'horas' => '0', 'puesto' => 'admin']
         ];
 
-        foreach($participantes as $participante){
-            Participante::create($participante);
+        foreach ($participantes as $participante) {
+            Participante::firstOrCreate(
+                ['user_id' => $participante['user_id']],
+                ['plantel' => $participante['plantel'], 'horas' => $participante['horas'], 'puesto' => $participante['puesto']]
+            );
         }
 
         $this->command->info('Participantes creados');

@@ -12,15 +12,24 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = [[
-            'email'=> 'admin@tecvalles.mx',
-            'nombre' => 'admin',
-            'password' => bcrypt ('12345678'),
-            'tipo' => 1,
-        ]];
+        $users = [
+            [
+                'email' => 'admin@tecvalles.mx',
+                'nombre' => 'admin',
+                'password' => bcrypt('12345678'),
+                'tipo' => 1,
+            ]
+        ];
 
-        foreach($users as $user){
-            User::create($user);
+        foreach ($users as $user) {
+            User::firstOrCreate(
+                ['email' => $user['email']],
+                [
+                    'nombre' => $user['nombre'] ?? null,
+                    'password' => $user['password'],
+                    'tipo' => $user['tipo'] ?? 1,
+                ]
+            );
         }
 
         $this->command->info('Usuarios creados');
