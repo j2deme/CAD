@@ -9,7 +9,7 @@ class Periodo extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nombre',
+        'periodo',
         'anio',
         'trimestre',
         'archivo_fondo'
