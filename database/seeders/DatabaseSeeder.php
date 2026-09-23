@@ -14,12 +14,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             DepartamentoSeeder::class,
+            PeriodoSeeder::class,
             RoleSeeder::class,
             userSeeder::class,
-            CursoSeeder::class,
+                // CursoSeeder::class, // datos de ejemplo — omitido en producción
             InitialSeeder::class,
-            PeriodoSeeder::class,
-            SugeridoSeeder::class,
+                // SugeridoSeeder::class, // datos de ejemplo — omitido en producción
             User_RoleSeeder::class,
             // Agrega aquí otros seeders, por ejemplo:
             // UserSeeder::class,
