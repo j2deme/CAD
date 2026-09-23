@@ -1,0 +1,35 @@
+# Directorios y archivos que no deben entrar al contexto de build
+.git
+.gitignore
+.gitattributes
+.editorconfig
+
+# Secretos
+.env
+.env.*
+auth.json
+
+# Dependencias: se instalan dentro de la imagen (npm ci / composer install)
+node_modules
+vendor
+
+# Artefactos generados en build (se generan dentro de la imagen)
+public/build
+public/hot
+public/storage
+npm-debug.log
+
+# Runtime / logs
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+*.log
+
+# Archivos de deploy no necesarios dentro de la imagen
+Dockerfile
+docker-compose.yml
+README.md
+test_debug.txt
+.phpunit.result.cache
+tests
